@@ -417,8 +417,10 @@ exists:
     mqinfo->mqi_magic = MQI_MAGIC;
     mqinfo->mqi_flags = nonblock;
     return((mqd_t) mqinfo);
+#if !defined(WIN32)
 pthreaderr:
     errno = i;
+#endif
 err:
     /* don't let following function calls change errno */
     save_errno = errno;
